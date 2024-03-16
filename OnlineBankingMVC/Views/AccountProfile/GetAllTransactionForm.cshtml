@@ -1,0 +1,13 @@
+
+
+@model OnlineBankingMVC.Models.TransactionViewModel
+
+@using(Html.BeginForm("GetAllTransaction","AccountProfile",FormMethod.Post)){
+    <p>@Html.LabelFor(model=>model.AccountNumber)</p>
+    <p>@Html.TextBoxFor(model=>model.AccountNumber)</p>
+    <button id="submit" type="submit">GET TransactionS</button>
+
+
+}
+
+

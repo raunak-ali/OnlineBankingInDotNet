@@ -1,0 +1,32 @@
+@model IEnumerable<OnlineBankingMVC.Models.TransactionViewModel>
+
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Refrence Id</th>
+                <th>Transaction Date</th>
+                <th>FROM</th>
+                <th>TO</th>
+                <th>Amount</th>
+                <th>MODE</th>
+                <th>REMARKS</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var m in Model)
+            {
+                <tr>
+                    <td>@m.TransactionId</td>
+                    <td>@m.TrasactionDate</td>
+                    <td>@m.AccountNumber</td>
+                    <td>@m.PaypeeIdAccountNumber</td>
+                    <td>@m.Amount</td>
+                    <td>@m.Type</td>
+                    <td>@m.Statement</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

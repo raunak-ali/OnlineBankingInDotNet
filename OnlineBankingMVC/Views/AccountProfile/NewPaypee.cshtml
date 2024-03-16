@@ -1,0 +1,18 @@
+@model OnlineBankingMVC.Models.PaypeeViewModel
+
+@using(Html.BeginForm("NewPaypee","AccountProfile",FormMethod.Post)){
+    <p>@Html.LabelFor(model=>model.AccountNumber)</p>
+    <p>@Html.TextBoxFor(model=>model.AccountNumber)</p>
+
+    <p>@Html.LabelFor(model=>model.PaypeeIdAccountNumber)</p>
+    <p>@Html.TextBoxFor(model=>model.PaypeeIdAccountNumber)</p>
+
+    <p>@Html.LabelFor(model=>model.PaypeeName)</p>
+    <p>@Html.TextBoxFor(model=>model.PaypeeName)</p>
+
+    <p>@Html.LabelFor(model=>model.NickName)</p>
+    <p>@Html.TextBoxFor(model=>model.NickName)</p>
+    <button id="submit" type="submit">Set NEw Paypee</button>
+
+
+}

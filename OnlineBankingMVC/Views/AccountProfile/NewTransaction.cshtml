@@ -1,0 +1,25 @@
+@model OnlineBankingMVC.Models.TransactionViewModel
+
+@using(Html.BeginForm("NewTransaction","AccountProfile",FormMethod.Post)){
+    <p>@Html.LabelFor(model=>model.Type)</p>
+    <p>@Html.TextBoxFor(model=>model.Type)</p>
+
+    <p>@Html.LabelFor(model=>model.Amount)</p>
+    <p>@Html.TextBoxFor(model=>model.Amount)</p>
+
+    <p>FROM: </p>
+    <p>@Html.TextBoxFor(model=>model.AccountNumber)</p>
+
+    <p>To: </p>
+    <p>@Html.TextBoxFor(model=>model.PaypeeIdAccountNumber)</p>
+
+<p>Statement/Remarks</p>
+<p>@Html.TextBoxFor(model=>model.Statement)</p>
+
+<p>Transaction Date:</p>
+<p>@Html.TextBoxFor(model=>model.TrasactionDate)</p>
+
+    <button id="submit" type="submit">Set NEw Paypee</button>
+
+
+}
