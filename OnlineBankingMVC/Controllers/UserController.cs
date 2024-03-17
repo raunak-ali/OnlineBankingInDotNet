@@ -83,10 +83,26 @@ namespace OnlineBankingMVC.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                   string jsonResponse = await response.Content.ReadAsStringAsync();
+                  if(jsonResponse=="INCORRECT PASSWORD "){
+ ViewData["INVALIDUSER"]="UserId Or password Invalid";
+                     return View(user);
+                  }
+                  else if(jsonResponse=="Cannot Log you in,Register First"){
+                    ViewData["INVALIDUSER"]="UserId Or password Invalid";
+                     return View(user);
+                  }
+                  else if(jsonResponse=="Your Account is Locked now Try Resting the password now"){
+                     ViewData["ErrorMessage"]="Account is Locked";
+                     return View(user);
+                  }
 
                 // Deserialize the JSON response to extract the token and UserProfile
                 var responseObject = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
-                
+                var user_id_locked=responseObject.UserProfile.isLocked;
+                if(user_id_locked==true){
+ ViewData["ErrorMessage"]="Account is Locked";
+                     return View(user);
+                }
                 // Extract token from the response
                 string token = responseObject.token;
 

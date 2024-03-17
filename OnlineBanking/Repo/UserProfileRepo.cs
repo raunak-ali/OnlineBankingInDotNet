@@ -133,7 +133,7 @@ return new JwtSecurityTokenHandler().WriteToken(token);}
                             
                         }
                         else{
-                            var curruserobj=context.UserProfiles.Find(user.AccountNumber);
+                            var curruserobj=context.UserProfiles.FirstOrDefault(s=>s.AccountNumber==user.AccountNumber);
                              trackfailedattempts++;
                             curruserobj.extra_info="{\"tracklastattempt\":"+trackfailedattempts+";\"lastattemptat\":\"" + DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss") + "\"}";
                             await context.SaveChangesAsync();
@@ -164,6 +164,7 @@ return new JwtSecurityTokenHandler().WriteToken(token);}
                     var existing=context.UserProfiles.FirstOrDefault(s=>s.AccountNumber==user.AccountNumber);
                     if(existing.LoginPassword!=user.LoginPassword){
                     existing.LoginPassword=user.LoginPassword;
+                    existing.isLocked=false;
                     existing.extra_info="{\"tracklastattempt\":0;\"lastattemptat\":\"" + DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss") + "\"}";
                     await context.SaveChangesAsync();
                     return "Password submitted succesfully";}
