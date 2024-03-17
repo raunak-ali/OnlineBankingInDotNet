@@ -11,38 +11,38 @@
      @Html.AntiForgeryToken()
      <hr />
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-<div class="form-group row">
-    @Html.LabelFor(model => model.AccountNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-6">
+<div class="form-group">
+    @Html.LabelFor(model => model.AccountNumber, htmlAttributes: new { @class = "control-label" })
+   
         @Html.EditorFor(model => model.AccountNumber, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.AccountNumber, "", new { @class = "text-danger" })
-    </div>
+    
 </div>
 
-<div class="form-group row">
-    @Html.LabelFor(model => model.LoginPassword, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-6">
+<div class="form-group">
+    @Html.LabelFor(model => model.LoginPassword, htmlAttributes: new { @class = "control-label" })
+
         @Html.EditorFor(model => model.LoginPassword, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.LoginPassword, "", new { @class = "text-danger" })
-    </div>
+
 </div>
 
-<div class="form-group row">
-    @Html.LabelFor(model => model.TransactionPassword, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-6">
+<div class="form-group">
+    @Html.LabelFor(model => model.TransactionPassword, htmlAttributes: new { @class = "control-label" })
+    
         @Html.EditorFor(model => model.TransactionPassword, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.TransactionPassword, "", new { @class = "text-danger" })
-    </div>
+   
 </div>
 
-<div class="form-group row">
-    @Html.LabelFor(model => model.AccountUserId, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-6">
+<div class="form-group">
+    @Html.LabelFor(model => model.AccountUserId, htmlAttributes: new { @class = "control-label" })
+   
         @Html.EditorFor(model => model.AccountUserId, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.AccountUserId, "", new { @class = "text-danger" })
-    </div>
+
 </div>
-<div class="form-group row">
+<div class="form-group">
     <div class="col-md-offset-2 col-md-10">
         <input type="submit" value="Register" class="btn btn-outline-success" />
     </div>

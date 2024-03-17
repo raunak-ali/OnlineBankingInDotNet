@@ -45,18 +45,36 @@ namespace OnlineBanking.Services
      }
  }
 
-  public async Task<string> ConfirmUserRegistration(UserProfile user){
+  public async Task<string> ConfirmUserRegistration(int userid){
     try{
-        return await User.ConfirmUserRegistration(user);
+        return await User.ConfirmUserRegistration(userid);
     }
     catch(Exception ex){throw;}
   }
 
 
-  public async Task<IEnumerable<UserProfile>> ShowUnConfirmedUsers(){
+  public async Task<string> ShowUnConfirmedUsers(){
     try{
         return await User.ShowUnConfirmedUsers();
     }catch(Exception ex){throw;}
+  }
+  public async Task<string> DownloadDocument(int AccountUserId){
+     try{
+        return await User.GetDocumentData(AccountUserId);
+    }catch(Exception ex){throw;}
+  }
+
+  public async Task<string> GenerateOTP(string AccountNumber){
+    try{
+        return await User.GenerateOTP(AccountNumber);
+    }
+    catch(Exception ex){throw;}
+  }
+  public async Task<string> CheckOTP(Token token){
+     try{
+        return await User.CheckOTP(token);
+    }
+    catch(Exception ex){throw;}
   }
     }
 }

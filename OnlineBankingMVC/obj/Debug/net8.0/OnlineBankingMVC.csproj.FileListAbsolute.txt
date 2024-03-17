@@ -75,3 +75,4 @@ C:\Users\rauali\Desktop\.Net\API\OnlineBankinginVSCODE\OnlineBankingMVC\bin\Debu
 C:\Users\rauali\Desktop\.Net\API\OnlineBankinginVSCODE\OnlineBankingMVC\bin\Debug\net8.0\Microsoft.AspNetCore.Server.Kestrel.Https.dll
 C:\Users\rauali\Desktop\.Net\API\OnlineBankinginVSCODE\OnlineBankingMVC\bin\Debug\net8.0\Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions.dll
 C:\Users\rauali\Desktop\.Net\API\OnlineBankinginVSCODE\OnlineBankingMVC\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\rauali\Desktop\.Net\API\OnlineBankinginVSCODE\OnlineBankingMVC\obj\Debug\net8.0\OnlineBankingMVC.sourcelink.json

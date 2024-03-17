@@ -44,7 +44,7 @@ namespace OnlineBankingMVC.Models
 
     // AccountNumber will be auto-generated based on phone number and primary key
     [AllowNull]
-    public string AccountNumber { get; set; }
+    public string? AccountNumber { get; set; }
 
     public List<PermanenetAddressViewModel> PermanantAddress { get; set; }
     public List<ResidentialAddressViewModel> ResidentialAddress { get; set; }
@@ -58,7 +58,11 @@ namespace OnlineBankingMVC.Models
 
     public bool OptedForDebitCard { get; set; }
     public bool OptedForNetBanking { get; set; }
-
+    [AllowNull]
+[NotMapped]
+        public IFormFile ValidationDocs { get; set; } // File field for file uploads
+  [AllowNull]
+    public byte[] ValidationDocsData { get; set; } 
   
         
     }

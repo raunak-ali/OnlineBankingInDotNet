@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineBanking.Models;
 
@@ -11,9 +12,11 @@ using OnlineBanking.Models;
 namespace OnlineBanking.Migrations
 {
     [DbContext(typeof(BankingDbContext))]
-    partial class BankingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240316141926_s")]
+    partial class s
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -111,6 +114,7 @@ namespace OnlineBanking.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("ValidationDocsData")
+                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("AccountUserId");
@@ -235,20 +239,19 @@ namespace OnlineBanking.Migrations
 
             modelBuilder.Entity("OnlineBanking.Models.Token", b =>
                 {
-                    b.Property<int?>("TokenId")
+                    b.Property<int>("TokenId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("TokenId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TokenId"));
 
-                    b.Property<string>("AccountNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AccountUserId")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime?>("ExpiryDate")
+                    b.Property<DateTime>("ExpiryDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("OTPValue")
+                    b.Property<string>("TokenValue")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

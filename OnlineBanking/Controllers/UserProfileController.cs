@@ -93,10 +93,10 @@ public async Task<ActionResult> ResetPassword([FromBody]UserProfile user)
 [Authorize(Policy = "IsAdmin")]
 [Route("Confirm")]
 [HttpPost]
-public async Task<ActionResult> ConfirmUserRegistration(UserProfile user)
+public async Task<ActionResult> ConfirmUserRegistration([FromBody]int userid)
         {
               try{
- var res = await UserProfileService.ConfirmUserRegistration(user);
+ var res = await UserProfileService.ConfirmUserRegistration(userid);
         if(res == null)
         {
             return BadRequest();
@@ -126,5 +126,69 @@ public async Task<ActionResult> ConfirmUserRegistration(UserProfile user)
         return StatusCode(500, ex.Message);
     }
     }
-}
+
+[Authorize]
+[HttpPost]
+[Route("DownloadDocument")]
+ public async Task<ActionResult> DownloadDocument([FromBody]int AccountUserId)
+    {
+        // Check if ValidationDocsData is valid
+        
+try{
+//var AccountUserId=acp.AccountUserId;
+ var res = await UserProfileService.DownloadDocument(AccountUserId);
+        if(res == null)
+        {
+            return BadRequest();
+        }
+        return Ok(res);
+
     }
+    catch(Exception ex){
+        return StatusCode(500, ex.Message);
+    }
+    
+
+}
+
+[AllowAnonymous]
+[HttpPost]
+[Route("GenerateOtp")]
+public async Task<ActionResult> GenerateOTP([FromBody]string AccountNumber){
+try{
+//var AccountUserId=acp.AccountUserId;
+ var res = await UserProfileService.GenerateOTP(AccountNumber);
+        if(res == null)
+        {
+            return BadRequest();
+        }
+        return Ok(res);
+
+    }
+    catch(Exception ex){
+        return StatusCode(500, ex.Message);
+    }
+}
+
+
+[AllowAnonymous]
+[HttpPost]
+[Route("CheckOtp")]
+public async Task<ActionResult> CheckOTP([FromBody]Token token){
+try{
+//var AccountUserId=acp.AccountUserId;
+ var res = await UserProfileService.CheckOTP(token);
+        if(res == "OTP Does not match")
+        {
+            return BadRequest();
+        }
+        return Ok(res);
+
+    }
+    catch(Exception ex){
+        return StatusCode(500, ex.Message);
+    }
+}
+
+    }
+}

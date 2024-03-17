@@ -141,3 +141,4 @@ C:\Users\rauali\Desktop\.Net\API\OnlineBankinginVSCODE\OnlineBanking\bin\Debug\n
 C:\Users\rauali\Desktop\.Net\API\OnlineBankinginVSCODE\OnlineBanking\bin\Debug\net8.0\MailKit.dll
 C:\Users\rauali\Desktop\.Net\API\OnlineBankinginVSCODE\OnlineBanking\bin\Debug\net8.0\MimeKit.dll
 C:\Users\rauali\Desktop\.Net\API\OnlineBankinginVSCODE\OnlineBanking\bin\Debug\net8.0\NETCore.MailKit.dll
+C:\Users\rauali\Desktop\.Net\API\OnlineBankinginVSCODE\OnlineBanking\obj\Debug\net8.0\OnlineBanking.sourcelink.json

@@ -1,0 +1,48 @@
+@model List<OnlineBankingMVC.Models.UserProfileViewModel>
+<body>
+ <h1>Users Data</h1>
+
+ <table>
+    <thead>
+        <tr>
+            <th>User Profile</th>
+            <th>Account Profile</th>
+            <th>Download Document</th>
+            <th>Approve</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>
+                    <ul>
+                        <li>Number : @user.AccountNumber</li>
+                        <!-- Add other properties of UserProfile as needed -->
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li>First Name: @user.AccountProfile.First_name</li>
+                        <li>Last Name: @user.AccountProfile.Last_name</li>
+                        <!-- Add other properties of AccountUserProfile as needed -->
+                    </ul>
+                </td>
+                <td>
+                    @if (user.AccountProfile.ValidationDocsData != null && user.AccountProfile.ValidationDocsData.Length > 0)
+                    {
+                        <a href="@Url.Action("DownloadDocument", "Admin", new { AccoutUserid = user.AccountProfile.AccountUserId })">Download Document</a>
+                    }
+                </td>
+                <td>
+<form method="post" action="@Url.Action("ConfirmUserRegistration", "Admin")">
+    <input type="hidden" name="userid" value="@user.UserId" />
+    <button type="submit" cursor:pointer;">Approve the Profile</button>
+</form>
+                    <!-- Add Approve action button here -->
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</body>

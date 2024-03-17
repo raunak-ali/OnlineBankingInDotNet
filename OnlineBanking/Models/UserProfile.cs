@@ -13,15 +13,19 @@ namespace OnlineBanking.Models
         [Key]
         public int UserId{get;set;}
         
-         public bool IsAdmin { get; set; }
+        [AllowNull]
+         public bool? IsAdmin { get; set; }
+
         public string LoginPassword{get;set;}
-        public string TransactionPassword{get;set;}
+        [AllowNull]
+        public string? TransactionPassword{get;set;}
         [AllowNull]
         public bool isLocked{get;set;}
          [AllowNull]
 
         public string extra_info{get;set;}
          [AllowNull]
+       
    
     public bool isConfirmedUserProfile{get;set;}
 

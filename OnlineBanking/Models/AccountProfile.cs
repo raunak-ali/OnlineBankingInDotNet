@@ -57,6 +57,13 @@ namespace OnlineBanking.Models
 
     public bool OptedForDebitCard { get; set; }
     public bool OptedForNetBanking { get; set; }
+
+[AllowNull]
+[NotMapped]
+        public IFormFile? ValidationDocs { get; set; } // File field for file uploads
+  [AllowNull]
+    public byte[]? ValidationDocsData { get; set; } 
+  
         
     }
 }

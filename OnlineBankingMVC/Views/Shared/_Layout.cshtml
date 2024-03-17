@@ -7,28 +7,61 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/OnlineBankingMVC.styles.css" asp-append-version="true" />
+    <style>
+        body {
+            background: linear-gradient(to bottom, #0694c6, #d2ffff); /* Gradient background from left to right */
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: #000000; /* Set font color to black */
+        }
+
+      .navbar {
+            background-color: transparent; /* Make navbar transparent */
+        }
+
+        .navbar-nav {
+            position: absolute;
+            right: 20px;
+            top: 10px; /* Position navbar to top-right */
+        }
+
+        .btn-primary {
+            background-color: #d2ffff; /* Set primary button background color to lighter color of gradient */
+            border-color: #d2ffff; /* Set primary button border color */
+            color: #000000; /* Set button text color to black */
+            font-weight: bold; /* Make button font bolder */
+        }
+
+        .btn-primary:hover {
+            background-color: #0694c6; /* Set primary button background color on hover */
+            border-color: #0694c6; /* Set primary button border color on hover */
+            color: #ffffff; /* Set button text color to white on hover */
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">OnlineBankingMVC</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+       <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">ONLINE BANKING</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <p class="nav-link">@Html.ActionLink("Head to Admin Login","Login","Admin",null,new { @class = "btn btn-primary" })</p>
+                </li>
+                <li class="nav-item">
+                    <p class="nav-link">@Html.ActionLink("Contact Info","Contact","Home",null,new { @class = "btn btn-primary" })</p>
+                </li>
+                <li class="nav-item">
+                    <p class="nav-link">@Html.ActionLink("Login","Login","User",null, new { @class = "btn btn-primary" })</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">

@@ -82,8 +82,14 @@ namespace OnlineBankingMVC.Controllers
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    string token = await response.Content.ReadAsStringAsync();
-                // Store JWT token in session
+                  string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                // Deserialize the JSON response to extract the token and UserProfile
+                var responseObject = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
+                
+                // Extract token from the response
+                string token = responseObject.token;
+
                 HttpContext.Session.SetString("JWTToken", token); 
                     return RedirectToAction("Index","AccountProfile");
                 }
@@ -105,10 +111,121 @@ namespace OnlineBankingMVC.Controllers
         // Redirect to the login page
         return RedirectToAction("Index");
     }
+
+// Handling ForgotPassword
+
       
+
+[AllowAnonymous]
+ public ViewResult GenerateOTP()
+ {
+     return View();
+ }
+
+[AllowAnonymous]
+[HttpPost]
+  public async Task<ActionResult> GenerateOTP(Token token)
+  {
+      if (token!=null){
+        var AccountNumber=token.AccountNumber;
+          UserProfileViewModel newUser = new UserProfileViewModel();
+          var service = new ServiceRepository(_httpClient,_configuration,_httpContextAccessor);
+          {
+            using (var response = service.PostResponse("UserProfile/GenerateOtp", AccountNumber))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                  string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                // Deserialize the JSON response to extract the token and UserProfile
+                //var responseObject = JsonConvert.DeserializeObject<Token>(jsonResponse);
+                
+             
+                    return RedirectToAction("CheckOtp");
+                }
+            }
+          }
+
+          return View(token);
+          }
+
+          return View(token);
+      }
+
+
+
+      [AllowAnonymous]
+ public ViewResult CheckOtp()
+ {
+     return View();
+ }
+
+[AllowAnonymous]
+[HttpPost]
+  public async Task<ActionResult> CheckOtp(Token token)
+  {
+      if (token!=null){
+        token.ExpiryDate=DateTime.Now;
+          UserProfileViewModel newUser = new UserProfileViewModel();
+          var service = new ServiceRepository(_httpClient,_configuration,_httpContextAccessor);
+          {
+            using (var response = service.PostResponse("UserProfile/CheckOtp", token))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                  string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                // Deserialize the JSON response to extract the token and UserProfile
+                //var responseObject = JsonConvert.DeserializeObject<Token>(jsonResponse);
+                
+             
+                    return RedirectToAction("ResetPassword");
+                }
+            }
+          }
+
+          return View(token);
+          }
+
+          return View(token);
+      }
   
     
-    
+ [AllowAnonymous]
+ public ViewResult ResetPassword()
+ {
+     return View();
+ }
+
+[AllowAnonymous]
+[HttpPost]
+  public async Task<ActionResult> ResetPassword(UserProfileViewModel user)
+  {
+      if (user!=null){
+        
+          UserProfileViewModel newUser = new UserProfileViewModel();
+          var service = new ServiceRepository(_httpClient,_configuration,_httpContextAccessor);
+          {
+            using (var response = service.PostResponse("UserProfile/ResetPassword", user))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                  string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                // Deserialize the JSON response to extract the token and UserProfile
+                //var responseObject = JsonConvert.DeserializeObject<Token>(jsonResponse);
+                
+             
+                    return RedirectToAction("Login");
+                }
+            }
+          }
+
+          return View(user);
+          }
+
+          return View(user);
+      }
     
     }
     

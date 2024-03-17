@@ -162,8 +162,17 @@ public async Task<ActionResult> AddAccountUser(){
         public async Task<ActionResult> AddAccountUser(AccountProfileViewModel AccUser){
 
         if (AccUser!=null){
+             if (AccUser.ValidationDocs != null)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await AccUser.ValidationDocs.CopyToAsync(memoryStream);
+                        AccUser.ValidationDocsData = memoryStream.ToArray();
+                    }
+                }
         AccountProfileViewModel newUser = new AccountProfileViewModel();
         AccUser.AccountNumber="0";
+        AccUser.ValidationDocs=null;
           var service = new ServiceRepository(_httpClient,_configuration,_httpContextAccessor);
           {
             using (var response = service.PostResponse("AccountUser/addAccount",AccUser))

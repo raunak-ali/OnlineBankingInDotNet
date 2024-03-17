@@ -110,7 +110,16 @@ return new JwtSecurityTokenHandler().WriteToken(token);}
                 if(existing!=null){
                     //Here echeck if the User is confirmed
                     string Token=generateToken(existing);
-                    return Token;
+                    //Adding that to Json response
+                    var responseJson = new
+                {
+                    token = Token,
+                    userProfile = existing
+                };
+
+                // Serialize the JSON object to a string
+                string jsonResponse = JsonConvert.SerializeObject(responseJson);
+                    return jsonResponse;
                     }
                 else{
                    
@@ -152,7 +161,7 @@ return new JwtSecurityTokenHandler().WriteToken(token);}
             try{
                 if(user!=null){
                     //Make Logic here which sends a verification OTP to the User(Make it so its valid only for the next 10 minutes)
-                    var existing=context.UserProfiles.Find(user.AccountNumber);
+                    var existing=context.UserProfiles.FirstOrDefault(s=>s.AccountNumber==user.AccountNumber);
                     if(existing.LoginPassword!=user.LoginPassword){
                     existing.LoginPassword=user.LoginPassword;
                     existing.extra_info="{\"tracklastattempt\":0;\"lastattemptat\":\"" + DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss") + "\"}";
@@ -169,11 +178,11 @@ return new JwtSecurityTokenHandler().WriteToken(token);}
             }
         }
 
-
-        public async Task<string> ConfirmUserRegistration([FromBody]UserProfile user)
+//To Confirm A USer
+        public async Task<string> ConfirmUserRegistration([FromBody]int userid)
         {
             try{
-            var x=context.UserProfiles.Find(user.UserId);
+            var x=context.UserProfiles.FirstOrDefault(s=>s.UserId==userid);
             x.isConfirmedUserProfile=true;
             await context.SaveChangesAsync();
             
@@ -182,17 +191,123 @@ return new JwtSecurityTokenHandler().WriteToken(token);}
 
            
         }
+//To Show UNConfirmed Users
 
 
       
-public async Task<IEnumerable<UserProfile>> ShowUnConfirmedUsers(){
+public async Task<string> ShowUnConfirmedUsers(){
     try{
-            var ListofUsers=context.UserProfiles.Where(user=>user.isConfirmedUserProfile==false);
+            var usersWithAccounts = await context.UserProfiles
+            .Where(user => !user.isConfirmedUserProfile) // Only unconfirmed users
+            .ToListAsync();
 
-            return ListofUsers;}
+        foreach (var user in usersWithAccounts)
+        {
+            user.AccountProfile = await context.AccountUserProfiles.FirstOrDefaultAsync(ap => ap.AccountNumber == user.AccountNumber);
+        }
+
+        // Serialize the list of users with their associated accounts into JSON
+        string jsonResponse = JsonConvert.SerializeObject(usersWithAccounts);
+            return jsonResponse;
+            }
             catch(Exception e){throw;}
 
+
         }
+
+
+        //To Recieve the byte array of the do requested by the MVC
+        public async Task<string> GetDocumentData(int accountUserId)
+{
+    try
+    {
+        // Retrieve the document data based on the accountUserId from your data source
+        byte[] documentData = await context.AccountUserProfiles
+            .Where(m => m.AccountUserId == accountUserId)
+            .Select(m => m.ValidationDocsData)
+            .FirstOrDefaultAsync();
+            string base64String = Convert.ToBase64String(documentData);
+    return base64String;
+
+       
+    }
+    catch (Exception ex)
+    {
+        // Handle exception
+        throw;
+    }
+}
+//GenerateOtp and send it on the email
+
+  public void SendEmail(string toEmail, string subject,string AccountNumber,string OTP)
+        {
+            try{
+            // Set up SMTP client
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+            client.EnableSsl = true;
+            client.UseDefaultCredentials = false;
+            
+            client.Credentials = new NetworkCredential("netasp709@gmail.com", "ndeq qwol oyew bxxr");
+
+            // Create email message
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress("netasp709@gmail.com");
+            mailMessage.To.Add(toEmail);
+            mailMessage.Subject = subject;
+            mailMessage.IsBodyHtml = true;
+            StringBuilder mailBody = new StringBuilder();
+            mailBody.AppendFormat("<h1>User Registered</h1>");
+            mailBody.AppendFormat("<br />");
+            mailBody.AppendFormat("<p>Thank you For Registering account</p>");
+            mailBody.AppendFormat("<p>Account Number: {0}</p>", AccountNumber);
+            mailBody.AppendFormat("<p>Verification OTP: {0}</p>", OTP); // Include Account Number
+    mailMessage.Body = mailBody.ToString();
+
+    // Send email
+    client.Send(mailMessage);}
+    catch(Exception ex){
+        //Lets not throw an exception here since this will not work on office VPN
+        return;
+    }
+        }
+public async Task<string> GenerateOTP(string AccountNumber){
+    try{
+    var existing_account=await context.AccountUserProfiles.FirstOrDefaultAsync(s=>s.AccountNumber==AccountNumber);
+if(existing_account !=null){
+    var toEmail=existing_account.Email_id;
+     // Generate a random 6-digit number for OTP
+    Random rand = new Random();
+    string OTP = rand.Next(100000, 999999).ToString(); // Generates a random number between 100000 and 999999
+    
+    SendEmail(toEmail,"Verification Otp",AccountNumber,OTP);
+    Token token=new Token();
+    token.AccountNumber=AccountNumber;
+    token.OTPValue=OTP;
+    token.ExpiryDate=DateTime.Now.AddHours(1);
+    await context.Tokens.AddAsync(token);
+    await context.SaveChangesAsync();
+return "Otp Sent To Your email";
+}
+    return "Otp Not Sent";}
+    catch(Exception ex){throw;}
+}
+public async Task<string> CheckOTP(Token token){
+    try{
+        var existing_account=await context.Tokens.FirstOrDefaultAsync(
+            s=>s.AccountNumber==token.AccountNumber 
+        && s.OTPValue==token.OTPValue
+        &&s.ExpiryDate<=token.ExpiryDate);
+        context.Tokens.Remove(existing_account);
+        await context.SaveChangesAsync();
+
+        if(existing_account!=null){
+            return"Otp Does Match";
+            
+        }
+        return "OTP Does not match";
+    }
+    catch(Exception ex){throw;}
+}
 
 
 
