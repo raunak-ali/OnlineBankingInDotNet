@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 using OnlineBanking.Models;
 using OnlineBanking.Services;
 
@@ -49,6 +50,7 @@ public async Task<ActionResult> AddUserProfile([FromBody]UserProfile user)//Add 
 [HttpPost]
 [AllowAnonymous]
 [Route("Login")]
+
 public async Task<ActionResult>  LoginUserProfile([FromBody]UserProfile user)//Try [FromBody]
 {
     try
@@ -154,15 +156,16 @@ try{
 [AllowAnonymous]
 [HttpPost]
 [Route("GenerateOtp")]
-public async Task<ActionResult> GenerateOTP([FromBody]string AccountNumber){
+public async Task<ActionResult> GenerateOTP([FromBody]dynamic data){
 try{
+string AccountNumber = data.GetProperty("AccountNumber").GetString();
 //var AccountUserId=acp.AccountUserId;
  var res = await UserProfileService.GenerateOTP(AccountNumber);
         if(res == null)
         {
             return BadRequest();
         }
-        return Ok(res);
+        return Ok(new{message=res});
 
     }
     catch(Exception ex){

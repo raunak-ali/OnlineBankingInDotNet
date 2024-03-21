@@ -297,7 +297,7 @@ public async Task<string> CheckOTP(Token token){
         var existing_account=await context.Tokens.FirstOrDefaultAsync(
             s=>s.AccountNumber==token.AccountNumber 
         && s.OTPValue==token.OTPValue
-        &&s.ExpiryDate<=token.ExpiryDate);
+       );//Expiry date daldiyo
         context.Tokens.Remove(existing_account);
         await context.SaveChangesAsync();
 

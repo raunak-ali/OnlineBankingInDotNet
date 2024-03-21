@@ -12,6 +12,7 @@ using OnlineBanking.Services;
 
  
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(p => p.AddDefaultPolicy(policy => policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod()));
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -48,7 +49,6 @@ builder.Services.AddDbContext<BankingDbContext>(options=>options.UseSqlServer(bu
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCors(p => p.AddDefaultPolicy(policy => policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod()));
 
 builder.Services.AddScoped<IAccountUser, AccountUserRepo>();
 builder.Services.AddScoped<AccountUserServices, AccountUserServices>();
@@ -67,7 +67,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors();
 
 app.UseAuthentication();//For Authentication
 app.UseHttpsRedirection();

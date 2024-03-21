@@ -103,6 +103,10 @@ namespace OnlineBankingMVC.Controllers
  ViewData["ErrorMessage"]="Account is Locked";
                      return View(user);
                 }
+                var is_user_confirmed=responseObject.UserProfileViewModel.isConfirmedUserProfile;
+                if(is_user_confirmed==false){
+                ViewData["ErrorMessage"]="Account is not Approved by an Admin yet";
+                }
                 // Extract token from the response
                 string token = responseObject.token;
 
