@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OnlineBankingMVC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+128710735cdfe33206bdd0384562ece670aafeec")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a95c12e97f661bd0d7af0a85120862497b8d6da6")]
 [assembly: System.Reflection.AssemblyProductAttribute("OnlineBankingMVC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OnlineBankingMVC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

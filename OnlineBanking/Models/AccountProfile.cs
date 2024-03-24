@@ -45,8 +45,8 @@ namespace OnlineBanking.Models
     [AllowNull]
     public string AccountNumber { get; set; }
 
-    public List<PermanenetAddress> PermanantAddress { get; set; }
-    public List<ResidentialAddress> ResidentialAddress { get; set; }
+    public PermanenetAddress PermanantAddress { get; set; }
+    public ResidentialAddress ResidentialAddress { get; set; }
 
     public string OccupationType { get; set; }
     public string SourceOfIncome { get; set; }

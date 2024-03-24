@@ -102,6 +102,12 @@ namespace OnlineBanking.Migrations
                     b.Property<bool>("OptedForNetBanking")
                         .HasColumnType("bit");
 
+                    b.Property<int>("PermanantAddressAddressId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ResidentialAddressAddressId")
+                        .HasColumnType("int");
+
                     b.Property<string>("SourceOfIncome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -114,6 +120,10 @@ namespace OnlineBanking.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("AccountUserId");
+
+                    b.HasIndex("PermanantAddressAddressId");
+
+                    b.HasIndex("ResidentialAddressAddressId");
 
                     b.ToTable("AccountUserProfiles");
                 });
@@ -148,9 +158,6 @@ namespace OnlineBanking.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AddressId"));
 
-                    b.Property<int?>("AccountProfileAccountUserId")
-                        .HasColumnType("int");
-
                     b.Property<int>("AccountUserId")
                         .HasColumnType("int");
 
@@ -183,8 +190,6 @@ namespace OnlineBanking.Migrations
 
                     b.HasKey("AddressId");
 
-                    b.HasIndex("AccountProfileAccountUserId");
-
                     b.ToTable("PermanenetAddresses");
                 });
 
@@ -195,9 +200,6 @@ namespace OnlineBanking.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AddressId"));
-
-                    b.Property<int?>("AccountProfileAccountUserId")
-                        .HasColumnType("int");
 
                     b.Property<int>("AccountUserId")
                         .HasColumnType("int");
@@ -227,8 +229,6 @@ namespace OnlineBanking.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AddressId");
-
-                    b.HasIndex("AccountProfileAccountUserId");
 
                     b.ToTable("ResidentialAddresses");
                 });
@@ -316,7 +316,7 @@ namespace OnlineBanking.Migrations
                     b.Property<int>("AccountUserId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsAdmin")
+                    b.Property<bool?>("IsAdmin")
                         .HasColumnType("bit");
 
                     b.Property<string>("LoginPassword")
@@ -324,7 +324,6 @@ namespace OnlineBanking.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TransactionPassword")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("extra_info")
@@ -357,18 +356,23 @@ namespace OnlineBanking.Migrations
                     b.Navigation("AccountProfile");
                 });
 
-            modelBuilder.Entity("OnlineBanking.Models.PermanenetAddress", b =>
+            modelBuilder.Entity("OnlineBanking.Models.AccountProfile", b =>
                 {
-                    b.HasOne("OnlineBanking.Models.AccountProfile", null)
-                        .WithMany("PermanantAddress")
-                        .HasForeignKey("AccountProfileAccountUserId");
-                });
+                    b.HasOne("OnlineBanking.Models.PermanenetAddress", "PermanantAddress")
+                        .WithMany()
+                        .HasForeignKey("PermanantAddressAddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-            modelBuilder.Entity("OnlineBanking.Models.ResidentialAddress", b =>
-                {
-                    b.HasOne("OnlineBanking.Models.AccountProfile", null)
-                        .WithMany("ResidentialAddress")
-                        .HasForeignKey("AccountProfileAccountUserId");
+                    b.HasOne("OnlineBanking.Models.ResidentialAddress", "ResidentialAddress")
+                        .WithMany()
+                        .HasForeignKey("ResidentialAddressAddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PermanantAddress");
+
+                    b.Navigation("ResidentialAddress");
                 });
 
             modelBuilder.Entity("OnlineBanking.Models.Transaction", b =>
@@ -416,13 +420,6 @@ namespace OnlineBanking.Migrations
             modelBuilder.Entity("OnlineBanking.Models.Account", b =>
                 {
                     b.Navigation("Transactions");
-                });
-
-            modelBuilder.Entity("OnlineBanking.Models.AccountProfile", b =>
-                {
-                    b.Navigation("PermanantAddress");
-
-                    b.Navigation("ResidentialAddress");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,10 +28,23 @@ public AccountUserController(AccountUserServices accountUserServices)
 [HttpPost]
 [AllowAnonymous]
 [Route("addAccount")]
-public async Task<ActionResult> AddAccount([FromBody]AccountProfile acProfile)//[FromBody]
+public async Task<ActionResult> AddAccount([FromBody]dynamic data)//[FromBody]
 {
     try
     {
+        var temp=data.GetProperty("acProfile").GetRawText();
+         var formData = JsonSerializer.Deserialize<AccountProfile>(temp);
+         var TEMPDOCSDATA=formData.ValidationDocsData;
+         //formData.ValidationDocsData=null;
+
+        // Convert base64 string to byte array
+        if (TEMPDOCSDATA!=null)
+        {
+           // formData.ValidationDocsData = Convert.FromBase64String(TEMPDOCSDATA);
+            //formData.ValidationDocsData = formData.ValidationDocsDataByteArray;
+            //formData.ValidationDocsDataByteArray=null;
+        }
+        var acProfile=formData;
         var res = await accountuserService.AddAccount(acProfile);
         if(res == null)
         {

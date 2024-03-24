@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kSgBTEB+OgprNSLCIALGh7Qto/ylB4QO+e0mJ23Bl8n0SnIgNYq0Yw3T0KFt6do/8s4ugp48riSeYrekeYzCqA==",
+  "dgSpecHash": "+JnMbNOMEVIY3P1CK1P1+yqw31LIlAi1b8EmlO5WHCRyS5eUZ602OtpVqPJYdfhAOU4cA1mB77R4xNgySlfDSg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\rauali\\Desktop\\.Net\\API\\OnlineBankinginVSCODE\\OnlineBankingMVC\\OnlineBankingMVC.csproj",
+  "projectFilePath": "c:\\Users\\rauali\\Desktop\\.Net\\API\\OnlineBankinginVSCODE\\OnlineBankingMVC\\OnlineBankingMVC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\rauali\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\rauali\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

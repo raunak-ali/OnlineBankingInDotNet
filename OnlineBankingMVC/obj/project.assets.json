@@ -4109,11 +4109,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\rauali\\Desktop\\.Net\\API\\OnlineBankinginVSCODE\\OnlineBankingMVC\\OnlineBankingMVC.csproj",
+      "projectUniqueName": "c:\\Users\\rauali\\Desktop\\.Net\\API\\OnlineBankinginVSCODE\\OnlineBankingMVC\\OnlineBankingMVC.csproj",
       "projectName": "OnlineBankingMVC",
-      "projectPath": "C:\\Users\\rauali\\Desktop\\.Net\\API\\OnlineBankinginVSCODE\\OnlineBankingMVC\\OnlineBankingMVC.csproj",
+      "projectPath": "c:\\Users\\rauali\\Desktop\\.Net\\API\\OnlineBankinginVSCODE\\OnlineBankingMVC\\OnlineBankingMVC.csproj",
       "packagesPath": "C:\\Users\\rauali\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rauali\\Desktop\\.Net\\API\\OnlineBankinginVSCODE\\OnlineBankingMVC\\obj\\",
+      "outputPath": "c:\\Users\\rauali\\Desktop\\.Net\\API\\OnlineBankinginVSCODE\\OnlineBankingMVC\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\rauali\\AppData\\Roaming\\NuGet\\NuGet.Config",
