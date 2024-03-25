@@ -40,6 +40,7 @@ namespace OnlineBanking.Repo
         var existing_Account=context.Accounts.FirstOrDefault(ac=>ac.AccountNumber==user.AccountNumber);
         user.Account=existing_Account;
         user.AccountProfile=existing_AccountUSer;
+        user.AccountUserId=existing_AccountUSer.AccountUserId;
 
         //Set Certain Default Values(Maybe Do this Through Models Itself)
 

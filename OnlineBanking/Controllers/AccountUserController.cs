@@ -93,7 +93,7 @@ public async Task<ActionResult> NewPaypee([FromBody]Paypee paypee)//Add [FormBod
         {
             return BadRequest();
         }
-        return Ok(res);
+        return Ok(new{message=res});
     }
     catch (Exception ex)
     {
